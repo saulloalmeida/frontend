@@ -1,27 +1,16 @@
 import { Box } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
-import Link from "@mui/material/Link";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Typography from "@mui/material/Typography";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
+import CadastrarProfissional from "./CadastrarProfissional";
+import CadastrarProfissoes from "./CadastrarProfissoes";
+import { Copyright } from "./components/Copyright";
 import Header from "./Header";
 import ListaProfissional from "./ListaProfissional";
 import ListaProfissoes from "./ListaProfissoes";
 import Navigator from "./Navigator";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {"Desenvolvido por Saullo Almeida"}
-      <Link color="inherit" href="https://www.linkedin.com/in/saullo-almeida/">
-        @saulloalmeida
-      </Link>{" "}
-      {new Date().getFullYear()}.
-    </Typography>
-  );
-}
 
 let theme = createTheme({
   palette: {
@@ -201,15 +190,31 @@ export default function Paperbase() {
           <Header onDrawerToggle={handleDrawerToggle} />
           <Box
             component="main"
-            sx={{ flex: 1, py: 6, px: 4, bgcolor: "#eaeff1" }}
+            sx={{
+              backgroundColor: "yellow",
+              height: "100vh",
+              width: "100%",
+              alignContent: "center",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              py: 6,
+              px: 4,
+              bgcolor: "#eaefe1",
+            }}
           >
             <Routes>
               <Route path="/profissionais" element={<ListaProfissional />} />
-              <Route path="/tipo-profissional" element={<ListaProfissoes />} />
+              <Route
+                path="/profissionais/novo"
+                element={<CadastrarProfissional />}
+              />
+              <Route path="/profissoes" element={<ListaProfissoes />} />
+              <Route
+                path="/profissoes/novo"
+                element={<CadastrarProfissoes />}
+              />
             </Routes>
-            {/* <ListaProfissoes /> */}
-            {/* <ListaProfissional /> */}
-            {/* <Content /> */}
           </Box>
           <Box component="footer" sx={{ p: 2, bgcolor: "#eaeff1" }}>
             <Copyright />

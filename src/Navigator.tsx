@@ -27,14 +27,24 @@ const categories = [
     id: "Build",
     children: [
       {
-        id: "Profissoes",
+        id: "Cadastrar Profissoes",
         icon: <DnsRoundedIcon />,
-        link: "/tipo-profissional",
+        link: "/profissoes/novo",
+      },
+      {
+        id: "Cadastrar Profissionais",
+        icon: <PermMediaOutlinedIcon />,
+        link: "/profissionais/novo",
       },
       {
         id: "Profissionais",
         icon: <PermMediaOutlinedIcon />,
         link: "/profissionais",
+      },
+      {
+        id: "Profissoes",
+        icon: <PermMediaOutlinedIcon />,
+        link: "/profissoes",
       },
     ],
   },
@@ -78,8 +88,8 @@ export default function Navigator(props: DrawerProps) {
         {categories.map(({ id, children }) => (
           <Box key={id} sx={{ bgcolor: "primary" }}>
             {children.map(({ id: childId, icon, link }) => (
-              <Link to={link} style={{ textDecoration: "none" }}>
-                <ListItem disablePadding key={childId}>
+              <Link to={link} key={childId} style={{ textDecoration: "none" }}>
+                <ListItem disablePadding>
                   <ListItemButton sx={item}>
                     <ListItemIcon>{icon}</ListItemIcon>
                     <ListItemText>{childId}</ListItemText>

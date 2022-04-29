@@ -1,3 +1,5 @@
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { IconButton } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -21,12 +23,22 @@ type ProfissionaisTipo = ProfissionalTipo[];
 
 export default function ListaProfissoes() {
   const [profissionais, setProfissionais] = useState<ProfissionaisTipo>([]);
-  useEffect(() => {
+  function carregarProfissionais() {
     axios
       .get("http://localhost:3333/profissionais")
       .then((response) => setProfissionais(response.data))
       .catch((err) => console.log(err));
+  }
+  useEffect(() => {
+    carregarProfissionais();
   }, []);
+
+  function deletarProfissional(id: number) {
+    axios
+      .delete(`http://localhost:3333/profissional/${id}`)
+      .then(() => carregarProfissionais());
+  }
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -36,6 +48,7 @@ export default function ListaProfissoes() {
             <TableCell align="right">Email</TableCell>
             <TableCell align="right">Profissão</TableCell>
             <TableCell align="right">Cadastrado em</TableCell>
+            <TableCell align="right">Opções</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -47,6 +60,13 @@ export default function ListaProfissoes() {
                 {profissional.tipoProfissional.descricao}
               </TableCell>
               <TableCell align="right">{profissional.createdAt}</TableCell>
+              <TableCell align="right">
+                <IconButton
+                  onClick={() => deletarProfissional(profissional.id)}
+                >
+                  <DeleteForeverIcon sx={{ color: "red" }} />
+                </IconButton>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
