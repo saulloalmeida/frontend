@@ -7,33 +7,15 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import axios from "axios";
-import { useEffect, useState } from "react";
-
-type ProfissaoTipo = {
-  id: number;
-  descricao: string;
-  createdAt: string;
-};
-type ProfissoesTipo = ProfissaoTipo[];
+import { useContext, useEffect } from "react";
+import { ProfissoesContext } from "../../context/ProfissoesContext";
 
 export default function ListaProfissoes() {
-  const [profissoes, setProfissoes] = useState<ProfissoesTipo>([]);
-  function carregarProfissoes() {
-    axios
-      .get("http://localhost:3333/profissoes")
-      .then((response) => setProfissoes(response.data))
-      .catch((err) => console.log(err));
-  }
+  const { carregarProfissoes, profissoes, deletarProfissao } =
+    useContext(ProfissoesContext);
   useEffect(() => {
     carregarProfissoes();
   }, []);
-
-  function deletarProfissao(id: number) {
-    axios
-      .delete(`http://localhost:3333/profissao/${id}`)
-      .then(() => carregarProfissoes());
-  }
 
   return (
     <TableContainer component={Paper}>

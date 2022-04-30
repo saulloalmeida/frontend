@@ -7,37 +7,15 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import axios from "axios";
-import { useEffect, useState } from "react";
-
-type ProfissionalTipo = {
-  id: number;
-  nome: string;
-  email: string;
-  createdAt: string;
-  tipoProfissional: {
-    descricao: string;
-  };
-};
-type ProfissionaisTipo = ProfissionalTipo[];
+import { useContext, useEffect } from "react";
+import { ProfissionalContext } from "../../context/ProfissionalContext";
 
 export default function ListaProfissoes() {
-  const [profissionais, setProfissionais] = useState<ProfissionaisTipo>([]);
-  function carregarProfissionais() {
-    axios
-      .get("http://localhost:3333/profissionais")
-      .then((response) => setProfissionais(response.data))
-      .catch((err) => console.log(err));
-  }
+  const { carregarProfissionais, profissionais, deletarProfissional } =
+    useContext(ProfissionalContext);
   useEffect(() => {
     carregarProfissionais();
   }, []);
-
-  function deletarProfissional(id: number) {
-    axios
-      .delete(`http://localhost:3333/profissional/${id}`)
-      .then(() => carregarProfissionais());
-  }
 
   return (
     <TableContainer component={Paper}>
@@ -57,7 +35,7 @@ export default function ListaProfissoes() {
               <TableCell align="right">{profissional.nome}</TableCell>
               <TableCell align="right">{profissional.email}</TableCell>
               <TableCell align="right">
-                {profissional.tipoProfissional.descricao}
+                {profissional.tipoProfissional?.descricao}
               </TableCell>
               <TableCell align="right">{profissional.createdAt}</TableCell>
               <TableCell align="right">

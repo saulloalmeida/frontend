@@ -4,13 +4,14 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import CadastrarProfissional from "./CadastrarProfissional";
-import CadastrarProfissoes from "./CadastrarProfissoes";
 import { Copyright } from "./components/Copyright";
-import Header from "./Header";
-import ListaProfissional from "./ListaProfissional";
-import ListaProfissoes from "./ListaProfissoes";
-import Navigator from "./Navigator";
+import Header from "./components/Header";
+import Home from "./components/Home";
+import Navigator from "./components/Navigator";
+import CadastrarProfissoes from "./components/Profissao/CadastrarProfissoes";
+import ListaProfissoes from "./components/Profissao/ListaProfissoes";
+import CadastrarProfissional from "./components/Profissional/CadastrarProfissional";
+import ListaProfissional from "./components/Profissional/ListaProfissional";
 
 let theme = createTheme({
   palette: {
@@ -204,6 +205,7 @@ export default function Paperbase() {
             }}
           >
             <Routes>
+              <Route path="/" element={<Home />} />
               <Route path="/profissionais" element={<ListaProfissional />} />
               <Route
                 path="/profissionais/novo"
