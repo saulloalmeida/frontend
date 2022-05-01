@@ -52,7 +52,7 @@ export default function CadastrarProfissional() {
 
   function carregarProfissoes() {
     axios
-      .get("http://localhost:3333/profissoes")
+      .get("profissoes")
       .then((response) => setProfissoes(response.data))
       .catch((err) => console.log(err));
   }
@@ -64,7 +64,7 @@ export default function CadastrarProfissional() {
   function handleClick(data: Inputs) {
     const { nome, email, telefone } = data;
     axios
-      .post("http://localhost:3333/profissional", {
+      .post("profissional", {
         nome: nome,
         email: email,
         situacao: true,

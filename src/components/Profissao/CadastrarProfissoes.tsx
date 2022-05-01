@@ -26,7 +26,7 @@ export default function CadastrarProfissoes() {
   const navigate = useNavigate();
   function handleClick(data: Inputs) {
     axios
-      .post("http://localhost:3333/profissao", {
+      .post("profissao", {
         descricao: data.descricao,
       })
       .then(() => {

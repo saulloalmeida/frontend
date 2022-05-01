@@ -1,9 +1,6 @@
 import axios from "axios";
 import { createContext, ReactNode, useState } from "react";
-const axiosConfig = {
-  baseURL: "https://backend-7u79mqkts-saulloalmeida.vercel.app/",
-};
-axios.create(axiosConfig);
+
 type ProfissoesContextProps = {
   children: ReactNode;
 };

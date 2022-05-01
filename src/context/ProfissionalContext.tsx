@@ -35,19 +35,17 @@ export const ProfissionalContextProvider = ({
 
   const carregarProfissionais = () => {
     axios
-      .get("http://localhost:3333/profissionais")
+      .get("profissionais")
       .then((response) => setProfissionais(response.data))
       .catch((err) => console.log(err));
   };
 
   function deletarProfissional(id: number) {
-    axios
-      .delete(`http://localhost:3333/profissional/${id}`)
-      .then(() => carregarProfissionais());
+    axios.delete(`profissional/${id}`).then(() => carregarProfissionais());
   }
   const carregarTotalDeProfissionais = () => {
     axios
-      .get("http://localhost:3333/profissionais/total")
+      .get("profissionais/total")
       .then((response) => setTotalDeProfissionais(response.data))
       .catch((err) => console.log(err));
   };
