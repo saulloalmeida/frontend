@@ -1,10 +1,6 @@
 import axios from "axios";
 import { createContext, ReactNode, useState } from "react";
 
-const axiosConfig = {
-  baseURL: process.env.URL || "http://localhost:3333",
-};
-axios.create(axiosConfig);
 type ProfissionalContextProps = {
   children: ReactNode;
 };

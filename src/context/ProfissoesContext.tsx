@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createContext, ReactNode, useState } from "react";
 const axiosConfig = {
-  baseURL: process.env.URL || "http://localhost:3333",
+  baseURL: "https://backend-7u79mqkts-saulloalmeida.vercel.app/",
 };
 axios.create(axiosConfig);
 type ProfissoesContextProps = {
@@ -40,13 +40,11 @@ export const ProfissoesContextProvider = ({
   };
 
   function deletarProfissao(id: number) {
-    axios
-      .delete(`http://localhost:3333/profissao/${id}`)
-      .then(() => carregarProfissoes());
+    axios.delete(`/profissao/${id}`).then(() => carregarProfissoes());
   }
   const carregarTotalDeProfissoes = () => {
     axios
-      .get("http://localhost:3333/profissoes/total")
+      .get("/profissoes/total")
       .then((response) => setTotalDeProfissoes(response.data))
       .catch((err) => console.log(err));
   };
