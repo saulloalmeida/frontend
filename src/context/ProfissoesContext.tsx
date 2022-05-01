@@ -1,6 +1,9 @@
 import axios from "axios";
 import { createContext, ReactNode, useState } from "react";
-
+const axiosConfig = {
+  baseURL: process.env.URL || "http://localhost:3333",
+};
+axios.create(axiosConfig);
 type ProfissoesContextProps = {
   children: ReactNode;
 };
@@ -31,7 +34,7 @@ export const ProfissoesContextProvider = ({
 
   const carregarProfissoes = () => {
     axios
-      .get("http://localhost:3333/profissoes")
+      .get("/profissoes")
       .then((response) => setProfissoes(response.data))
       .catch((err) => console.log(err));
   };
