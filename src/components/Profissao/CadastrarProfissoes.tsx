@@ -46,7 +46,7 @@ export default function CadastrarProfissoes() {
             width: 300,
           }}
         />
-        <p>{errors.descricao?.message}</p>
+        <Typography color={"red"}>{errors.descricao?.message}</Typography>
         <Button variant="contained" type="submit">
           Cadastrar
         </Button>

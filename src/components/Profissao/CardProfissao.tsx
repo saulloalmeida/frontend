@@ -8,6 +8,7 @@ function CardProfissao() {
   useEffect(() => {
     carregarTotalDeProfissoes();
   }, []);
+
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>

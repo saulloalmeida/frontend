@@ -2,17 +2,20 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import {
   Box,
   Button,
+  InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
   Stack,
   TextField,
+  Typography,
 } from "@mui/material";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import { ProfissoesContext } from "../../context/ProfissoesContext";
 
 type Inputs = {
   nome: string;
@@ -34,7 +37,7 @@ const schema = yup.object({
     .string()
     .email("Email inválido")
     .required("Preenchimento obrigatório"),
-  tipoProfissionalId: yup.number().required("Preenchimento obrigatório"),
+  tipoProfissionalId: yup.string().required("Preenchimento obrigatório"),
   telefone: yup.string().required("Preenchimento obrigatório"),
 });
 
@@ -47,16 +50,9 @@ export default function CadastrarProfissional() {
     resolver: yupResolver(schema),
   });
   const navigate = useNavigate();
-  const [profissoes, setProfissoes] = useState<ProfissoesTipo>([]);
-  const [id, setId] = useState<string>();
 
-  function carregarProfissoes() {
-    axios
-      .get("profissoes")
-      .then((response) => setProfissoes(response.data))
-      .catch((err) => console.log(err));
-  }
-
+  const { carregarProfissoes, profissoes } = useContext(ProfissoesContext);
+  const [id, setId] = useState<string>("");
   useEffect(() => {
     carregarProfissoes();
   }, []);
@@ -73,9 +69,10 @@ export default function CadastrarProfissional() {
       })
       .then(() => navigate("/profissionais"));
   }
-  function change(event: SelectChangeEvent) {
-    setId(event.target.value as string);
-  }
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setId(event.target.value);
+  };
 
   return (
     <Box alignItems={"center"}>
@@ -90,7 +87,7 @@ export default function CadastrarProfissional() {
               width: 500,
             }}
           />
-          <p>{errors.nome?.message}</p>
+          <Typography color={"red"}>{errors.nome?.message} </Typography>
 
           <TextField
             label="Email"
@@ -101,7 +98,7 @@ export default function CadastrarProfissional() {
               width: 500,
             }}
           />
-          <p>{errors.email?.message}</p>
+          <Typography color={"red"}> {errors.email?.message} </Typography>
           <TextField
             label="Telefone"
             variant="outlined"
@@ -111,24 +108,29 @@ export default function CadastrarProfissional() {
               width: 500,
             }}
           />
-          <p>{errors.telefone?.message}</p>
+          <Typography color={"red"}>{errors.telefone?.message}</Typography>
 
+          <InputLabel id="profissão">Profissão</InputLabel>
           <Select
-            labelId="profissao-simple-select-label"
-            id="profissao-simple-select"
-            label="profissao"
-            onChange={change}
-            defaultValue={"Esolha a profissão"}
+            {...register("tipoProfissionalId")}
+            labelId="profissão"
+            id="profissão"
+            value={id}
+            label="profissão"
+            onChange={handleChange}
+            sx={{
+              backgroundColor: "#fff",
+            }}
           >
-            {profissoes.map((profissao) => {
-              return (
-                <MenuItem key={profissao.id} value={profissao.id}>
-                  {profissao.descricao}
-                </MenuItem>
-              );
-            })}
+            {profissoes.map((profissao) => (
+              <MenuItem key={profissao.id} value={profissao.id}>
+                {profissao.descricao}
+              </MenuItem>
+            ))}
           </Select>
-          <p>{errors.tipoProfissionalId?.message}</p>
+          <Typography color={"red"}>
+            {errors.tipoProfissionalId?.message}
+          </Typography>
           <Button variant="contained" type="submit">
             Cadastrar
           </Button>
