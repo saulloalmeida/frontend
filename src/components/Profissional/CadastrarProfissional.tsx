@@ -68,7 +68,7 @@ export default function CadastrarProfissional() {
         nome: nome,
         email: email,
         situacao: true,
-        tipoProfissionalId: id,
+        tipoProfissionalId: Number(id),
         telefone: telefone,
       })
       .then(() => navigate("/profissionais"));
@@ -76,6 +76,7 @@ export default function CadastrarProfissional() {
   function change(event: SelectChangeEvent) {
     setId(event.target.value as string);
   }
+
   return (
     <Box alignItems={"center"}>
       <form onSubmit={handleSubmit(handleClick)}>
@@ -113,11 +114,11 @@ export default function CadastrarProfissional() {
           <p>{errors.telefone?.message}</p>
 
           <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            label="Age"
+            labelId="profissao-simple-select-label"
+            id="profissao-simple-select"
+            label="profissao"
             onChange={change}
-            defaultValue={""}
+            defaultValue={"Esolha a profissão"}
           >
             {profissoes.map((profissao) => {
               return (
