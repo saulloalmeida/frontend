@@ -76,66 +76,71 @@ export default function CadastrarProfissional() {
 
   return (
     <Box alignItems={"center"}>
-      <form onSubmit={handleSubmit(handleClick)}>
-        <Stack spacing={2} alignContent={"center"}>
-          <TextField
-            label="Nome"
-            variant="outlined"
-            {...register("nome")}
-            sx={{
-              bgcolor: "#fff",
-              width: 500,
-            }}
-          />
-          <Typography color={"red"}>{errors.nome?.message} </Typography>
+      {profissoes.length <= 0 && (
+        <Typography>É necessário cadastrar profissões primeiro</Typography>
+      )}
+      {profissoes.length >= 1 && (
+        <form onSubmit={handleSubmit(handleClick)}>
+          <Stack spacing={2} alignContent={"center"}>
+            <TextField
+              label="Nome"
+              variant="outlined"
+              {...register("nome")}
+              sx={{
+                bgcolor: "#fff",
+                width: 500,
+              }}
+            />
+            <Typography color={"red"}>{errors.nome?.message} </Typography>
 
-          <TextField
-            label="Email"
-            variant="outlined"
-            {...register("email")}
-            sx={{
-              bgcolor: "#fff",
-              width: 500,
-            }}
-          />
-          <Typography color={"red"}> {errors.email?.message} </Typography>
-          <TextField
-            label="Telefone"
-            variant="outlined"
-            {...register("telefone")}
-            sx={{
-              bgcolor: "#fff",
-              width: 500,
-            }}
-          />
-          <Typography color={"red"}>{errors.telefone?.message}</Typography>
+            <TextField
+              label="Email"
+              variant="outlined"
+              {...register("email")}
+              sx={{
+                bgcolor: "#fff",
+                width: 500,
+              }}
+            />
+            <Typography color={"red"}> {errors.email?.message} </Typography>
+            <TextField
+              label="Telefone"
+              variant="outlined"
+              {...register("telefone")}
+              sx={{
+                bgcolor: "#fff",
+                width: 500,
+              }}
+            />
+            <Typography color={"red"}>{errors.telefone?.message}</Typography>
 
-          <InputLabel id="profissão">Profissão</InputLabel>
-          <Select
-            {...register("tipoProfissionalId")}
-            labelId="profissão"
-            id="profissão"
-            value={id}
-            label="profissão"
-            onChange={handleChange}
-            sx={{
-              backgroundColor: "#fff",
-            }}
-          >
-            {profissoes.map((profissao) => (
-              <MenuItem key={profissao.id} value={profissao.id}>
-                {profissao.descricao}
-              </MenuItem>
-            ))}
-          </Select>
-          <Typography color={"red"}>
-            {errors.tipoProfissionalId?.message}
-          </Typography>
-          <Button variant="contained" type="submit">
-            Cadastrar
-          </Button>
-        </Stack>
-      </form>
+            <InputLabel id="profissão">Profissão</InputLabel>
+            <Select
+              {...register("tipoProfissionalId")}
+              labelId="profissão"
+              id="profissão"
+              value={id}
+              label="profissão"
+              onChange={handleChange}
+              sx={{
+                backgroundColor: "#fff",
+              }}
+            >
+              {profissoes.map((profissao) => (
+                <MenuItem key={profissao.id} value={profissao.id}>
+                  {profissao.descricao}
+                </MenuItem>
+              ))}
+            </Select>
+            <Typography color={"red"}>
+              {errors.tipoProfissionalId?.message}
+            </Typography>
+            <Button variant="contained" type="submit">
+              Cadastrar
+            </Button>
+          </Stack>
+        </form>
+      )}
     </Box>
   );
 }

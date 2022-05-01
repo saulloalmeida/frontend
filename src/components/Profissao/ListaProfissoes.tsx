@@ -18,29 +18,34 @@ export default function ListaProfissoes() {
   }, []);
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-        <TableHead>
-          <TableRow>
-            <TableCell align="right">Profissão</TableCell>
-            <TableCell align="right">Cadastrado em</TableCell>
-            <TableCell align="right">Opções</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {profissoes.map((profissao) => (
-            <TableRow key={profissao.id}>
-              <TableCell align="right">{profissao.descricao}</TableCell>
-              <TableCell align="right">{profissao.createdAt}</TableCell>
-              <TableCell align="right">
-                <IconButton onClick={() => deletarProfissao(profissao.id)}>
-                  <DeleteForeverIcon sx={{ color: "red" }} />
-                </IconButton>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <>
+      {profissoes.length <= 0 && <p>Nenhuma profissão cadastrada.</p>}
+      {profissoes.length >= 1 && (
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+            <TableHead>
+              <TableRow>
+                <TableCell align="right">Profissão</TableCell>
+                <TableCell align="right">Cadastrado em</TableCell>
+                <TableCell align="right">Opções</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {profissoes.map((profissao) => (
+                <TableRow key={profissao.id}>
+                  <TableCell align="right">{profissao.descricao}</TableCell>
+                  <TableCell align="right">{profissao.createdAt}</TableCell>
+                  <TableCell align="right">
+                    <IconButton onClick={() => deletarProfissao(profissao.id)}>
+                      <DeleteForeverIcon sx={{ color: "red" }} />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
+    </>
   );
 }

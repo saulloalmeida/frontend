@@ -18,37 +18,42 @@ export default function ListaProfissoes() {
   }, []);
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-        <TableHead>
-          <TableRow>
-            <TableCell align="right">Nome</TableCell>
-            <TableCell align="right">Email</TableCell>
-            <TableCell align="right">Profissão</TableCell>
-            <TableCell align="right">Cadastrado em</TableCell>
-            <TableCell align="right">Opções</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {profissionais.map((profissional) => (
-            <TableRow key={profissional.id}>
-              <TableCell align="right">{profissional.nome}</TableCell>
-              <TableCell align="right">{profissional.email}</TableCell>
-              <TableCell align="right">
-                {profissional.tipoProfissional?.descricao}
-              </TableCell>
-              <TableCell align="right">{profissional.createdAt}</TableCell>
-              <TableCell align="right">
-                <IconButton
-                  onClick={() => deletarProfissional(profissional.id)}
-                >
-                  <DeleteForeverIcon sx={{ color: "red" }} />
-                </IconButton>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <>
+      {profissionais.length <= 0 && <p>Nenhum profissional cadastrado.</p>}
+      {profissionais.length >= 1 && (
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+            <TableHead>
+              <TableRow>
+                <TableCell align="right">Nome</TableCell>
+                <TableCell align="right">Email</TableCell>
+                <TableCell align="right">Profissão</TableCell>
+                <TableCell align="right">Cadastrado em</TableCell>
+                <TableCell align="right">Opções</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {profissionais.map((profissional) => (
+                <TableRow key={profissional.id}>
+                  <TableCell align="right">{profissional.nome}</TableCell>
+                  <TableCell align="right">{profissional.email}</TableCell>
+                  <TableCell align="right">
+                    {profissional.tipoProfissional?.descricao}
+                  </TableCell>
+                  <TableCell align="right">{profissional.createdAt}</TableCell>
+                  <TableCell align="right">
+                    <IconButton
+                      onClick={() => deletarProfissional(profissional.id)}
+                    >
+                      <DeleteForeverIcon sx={{ color: "red" }} />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
+    </>
   );
 }
